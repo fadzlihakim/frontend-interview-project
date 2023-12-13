@@ -1,0 +1,134 @@
+@import "./base.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  padding: 2rem;
+  background-color: white;
+}
+
+header {
+  padding: 1em;
+}
+
+.headerImage {
+  width: 200px;
+}
+
+section {
+  background-color: rgb(239, 239, 239);
+}
+
+.item {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.main {
+  /* place-items: center;
+  display: grid; */
+  padding: 20px;
+  background-color: white;
+}
+
+.swiper-slide {
+  overflow: hidden;
+}
+
+.swiper {
+  width: 300px;
+}
+
+.button {
+  background-color: rgb(238, 238, 71);
+  color: black;
+  font-weight: 600;
+  border: 0px;
+  padding: 10px;
+}
+
+.itemSwiper {
+  height: 400px;
+  width: 300px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.itemSwiper:hover {
+  transform: scale(3);
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+
+.description label {
+  padding: 10px 0px;
+}
+
+span.status {
+  float: right;
+  color: green;
+}
+
+hr {
+  margin: 0px;
+  border: 1px solid black;
+  height: 1px;
+}
+
+.counter {
+  margin: 20px 0px;
+}
+
+#counter {
+  background-color: white;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.counterButton {
+  border: 0px;
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.thumbnail {
+  padding-top: 30px;
+  display: flex;
+  width: 50px;
+  flex-direction: row;
+}
+
+.thumbnailImage {
+  padding: 10px;
+}
+
+.thumbnailVideo {
+  padding: 10px;
+  width: 50px;
+}
+
+@media screen and (min-width: 720px) {
+  .main {
+    /* place-items: center;
+    display: grid; */
+    padding: 20px;
+    background-color: white;
+    width: 50%;
+    margin-left: 50%;
+    translate: -50%;
+  }
+}
+@media screen and (max-width: 720px) {
+  .item {
+    grid-template-columns: 1fr !important;
+  }
+  .counter {
+    display: flex;
+    justify-content: center;
+  }
+}
