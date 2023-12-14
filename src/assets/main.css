@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body {
   padding: 2rem;
   background-color: white;
@@ -26,14 +27,14 @@ section {
 }
 
 .main {
-  /* place-items: center;
-  display: grid; */
   padding: 20px;
   background-color: white;
 }
 
-.swiper-slide {
-  overflow: hidden;
+.enlarged-view {
+  position: fixed;
+  display: none;
+  z-index: 999;
 }
 
 .swiper {
@@ -55,7 +56,45 @@ section {
 }
 
 .itemSwiper:hover {
-  transform: scale(3);
+  transform: scale(1.1);
+  z-index: 1;
+}
+
+.itemSwiper:hover + .enlarged-view {
+  display: block;
+}
+
+.slider {
+  position: relative;
+  overflow: hidden;
+}
+
+.slider-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slider-item {
+  flex: 0 0 100%;
+}
+
+.arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  font-size: 24px;
+  color: #333;
+  padding: 8px;
+  z-index: 2;
+}
+
+.slider-item {
+  display: grid;
+  place-items: center;
+}
+
+.slider-item img {
+  height: 500px;
 }
 
 .description {
@@ -114,8 +153,6 @@ hr {
 
 @media screen and (min-width: 720px) {
   .main {
-    /* place-items: center;
-    display: grid; */
     padding: 20px;
     background-color: white;
     width: 50%;
@@ -124,11 +161,22 @@ hr {
   }
 }
 @media screen and (max-width: 720px) {
+  .main {
+    max-width: 76vw;
+  }
   .item {
     grid-template-columns: 1fr !important;
   }
   .counter {
     display: flex;
     justify-content: center;
+  }
+
+  .prev {
+    left: 0px;
+  }
+
+  .next {
+    right: 0px;
   }
 }

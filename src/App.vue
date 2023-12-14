@@ -1,13 +1,5 @@
 <script>
-import { Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
-import "swiper/css/navigation";
 export default {
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
   setup() {
     const onSwiper = (swiper) => {
       // console.log(swiper);
@@ -55,33 +47,76 @@ export default {
         { tag: "drag-swipe", video: "videos/drag-swipe-in-mobile.mp4" },
         { tag: "single-click", video: "videos/single-click-zoom-desktop.mp4" },
       ],
+      isHovered: false,
+      currentIndex: 0,
+      translateValue: 0,
     };
+  },
+  methods: {
+    moveEnlargedView(event) {
+      // Update the position of the enlarged view based on the cursor
+      if (this.isHovered) {
+        const enlargedView = this.$refs.enlargedView;
+        const rect = enlargedView.getBoundingClientRect();
+
+        const x = event.clientX - rect.width / 2;
+        const y = event.clientY - rect.height / 2;
+
+        enlargedView.style.left = `${x}px`;
+        enlargedView.style.top = `${y}px`;
+      }
+    },
+    nextSlide() {
+      this.currentIndex = (this.currentIndex + 1) % this.image.length;
+      this.updateSlider();
+    },
+    prevSlide() {
+      this.currentIndex =
+        (this.currentIndex - 1 + this.image.length) % this.image.length;
+      this.updateSlider();
+    },
+    updateSlider() {
+      this.translateValue = `-${this.currentIndex * 100}%`;
+    },
   },
 };
 </script>
 
 <template>
-  <header>
+  <header class="grid place-items-center">
     <div class="container">
       <img class="headerImage" src="/assets/tbps-logo.webp" alt="" />
     </div>
   </header>
-  <section>
+  <section class="grid place-items-center">
     <div class="container" id="content">
-      <div class="item">
-        <div class="main">
-          <swiper
-            :modules="modules"
-            :slides-per-view="1"
-            :space-between="50"
-            navigation
-            @swiper="onSwiper"
-            @slideChange="onSlideChange">
-            <swiper-slide v-for="item in image">
-              <img class="itemSwiper" v-bind:src="item.image" />
-            </swiper-slide>
-          </swiper>
-          <div class="thumbnail">
+      <div class="grid md:grid-cols-2 gap-10 p-5 grid-cols-1">
+        <div class="bg-white p-5">
+          <div class="slider relative overflow-hidden">
+            <div
+              class="relative place-items-center flex flex-row overflow-hidde transition-transform duration-500 ease-in-out"
+              :style="{ transform: 'translateX(' + translateValue + ')' }">
+              <div
+                v-for="(item, index) in image"
+                :key="index"
+                class="slider-item">
+                <img :src="item.image" alt="Slider Image" />
+              </div>
+            </div>
+
+            <div
+              class="arrow start-10 cursor-pointer absolute top-1/2 -ml-8 text-3xl text-gray-800"
+              @click="prevSlide">
+              &#9665;
+            </div>
+            <div
+              class="arrow end-10 cursor-pointer absolute top-1/2 -mr-8 text-3xl text-gray-800"
+              @click="nextSlide">
+              &#9655;
+            </div>
+          </div>
+          <div class="flex flex-row overflow-hidden">
+            <!-- <div class="thumbnail"> -->
             <img
               class="thumbnailImage"
               v-for="item in image"
@@ -92,20 +127,31 @@ export default {
               v-bind:src="item.video"></video>
           </div>
         </div>
-        <div class="description" id="describe">
+        <div class="flex flex-col text-start" id="describe">
           <label
-            >{{ brand }} <span class="status">{{ status }}</span></label
+            ><span class="uppercase">{{ brand }}</span>
+            <span class="status">{{ status }}</span></label
           >
-          <h2>{{ description }}</h2>
-          <h3>&#163;{{ price }}</h3>
+          <h2 class="text-2xl font-bold">{{ description }}</h2>
+          <h3 class="text-xl font-bold">&#163;{{ price }}</h3>
           <hr />
-          <label>Sim: {{ sim }}</label>
-          <label>Condition: {{ condition }}</label>
-          <label>Colour: {{ colour }}</label>
-          <label>Network: {{ network }}</label>
-          <label>Storage: {{ storage }}</label>
+          <label class="py-2"
+            >Sim: <span class="uppercase">{{ sim }}</span></label
+          >
+          <label class="py-2"
+            >Condition: <span class="uppercase">{{ condition }}</span></label
+          >
+          <label class="py-2"
+            >Colour: <span class="uppercase">{{ colour }}</span></label
+          >
+          <label class="py-2"
+            >Network: <span class="uppercase">{{ network }}</span></label
+          >
+          <label class="py-2"
+            >Storage: <span class="uppercase">{{ storage }}</span>
+          </label>
           <hr />
-          <div class="counter">
+          <div class="flex justify-center md:justify-start py-10">
             <button class="counterButton" @click="counter--">-</button>
             <label id="counter">{{ counter }}</label>
             <button class="counterButton" @click="counter++">+</button>
@@ -116,31 +162,3 @@ export default {
     </div>
   </section>
 </template>
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
