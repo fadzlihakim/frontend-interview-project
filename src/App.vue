@@ -50,6 +50,9 @@ export default {
       isHovered: false,
       currentIndex: 0,
       translateValue: 0,
+      touchStartX: 0,
+      touchEndX: 0,
+      threshold: 50,
     };
   },
   methods: {
@@ -78,6 +81,23 @@ export default {
     updateSlider() {
       this.translateValue = `-${this.currentIndex * 100}%`;
     },
+    handleTouchStart(event) {
+      this.touchStartX = event.changedTouches[0].clientX;
+    },
+    handleTouchMove(event) {
+      this.touchEndX = event.changedTouches[0].clientX;
+    },
+    handleTouchEnd() {
+      const deltaX = this.touchEndX - this.touchStartX;
+
+      if (Math.abs(deltaX) > this.threshold) {
+        if (deltaX > 0) {
+          this.prevSlide();
+        } else {
+          this.nextSlide();
+        }
+      }
+    },
   },
 };
 </script>
@@ -92,15 +112,18 @@ export default {
     <div class="container" id="content">
       <div class="grid md:grid-cols-2 gap-10 p-5 grid-cols-1">
         <div class="bg-white p-5">
-          <div class="slider relative overflow-hidden">
+          <div class="relative overflow-hidden h-96">
             <div
-              class="relative place-items-center flex flex-row overflow-hidde transition-transform duration-500 ease-in-out"
+              @touchstart="handleTouchStart"
+              @touchmove="handleTouchMove"
+              @touchend="handleTouchEnd"
+              class="relative place-items-center flex flex-row overflow-hidden transition-transform duration-500 ease-in-out"
               :style="{ transform: 'translateX(' + translateValue + ')' }">
               <div
                 v-for="(item, index) in image"
                 :key="index"
-                class="slider-item">
-                <img :src="item.image" alt="Slider Image" />
+                class="grid place-items-center flex-[0_0_100%]">
+                <img class="h-96" :src="item.image" alt="Slider Image" />
               </div>
             </div>
 
@@ -115,7 +138,7 @@ export default {
               &#9655;
             </div>
           </div>
-          <div class="flex flex-row overflow-hidden">
+          <div class="flex flex-row overflow-hidden pt-5">
             <!-- <div class="thumbnail"> -->
             <img
               class="thumbnailImage"
@@ -130,7 +153,7 @@ export default {
         <div class="flex flex-col text-start" id="describe">
           <label
             ><span class="uppercase">{{ brand }}</span>
-            <span class="status">{{ status }}</span></label
+            <span class="float-right text-green">{{ status }}</span></label
           >
           <h2 class="text-2xl font-bold">{{ description }}</h2>
           <h3 class="text-xl font-bold">&#163;{{ price }}</h3>
@@ -151,10 +174,10 @@ export default {
             >Storage: <span class="uppercase">{{ storage }}</span>
           </label>
           <hr />
-          <div class="flex justify-center md:justify-start py-10">
-            <button class="counterButton" @click="counter--">-</button>
+          <div class="flex justify-center md:justify-start py-5">
+            <button class="text-xl border-none" @click="counter--">-</button>
             <label id="counter">{{ counter }}</label>
-            <button class="counterButton" @click="counter++">+</button>
+            <button class="text-xl border-none" @click="counter++">+</button>
           </div>
           <button type="button" class="button">Add to Basket</button>
         </div>

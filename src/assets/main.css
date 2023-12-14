@@ -64,20 +64,6 @@ section {
   display: block;
 }
 
-.slider {
-  position: relative;
-  overflow: hidden;
-}
-
-.slider-container {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.slider-item {
-  flex: 0 0 100%;
-}
-
 .arrow {
   cursor: pointer;
   position: absolute;
@@ -88,38 +74,10 @@ section {
   z-index: 2;
 }
 
-.slider-item {
-  display: grid;
-  place-items: center;
-}
-
-.slider-item img {
-  height: 500px;
-}
-
-.description {
-  display: flex;
-  flex-direction: column;
-  text-align: start;
-}
-
-.description label {
-  padding: 10px 0px;
-}
-
-span.status {
-  float: right;
-  color: green;
-}
-
 hr {
   margin: 0px;
   border: 1px solid black;
   height: 1px;
-}
-
-.counter {
-  margin: 20px 0px;
 }
 
 #counter {
@@ -129,19 +87,6 @@ hr {
   padding-right: 10px;
 }
 
-.counterButton {
-  border: 0px;
-  font-weight: 700;
-  font-size: 1.2em;
-}
-
-.thumbnail {
-  padding-top: 30px;
-  display: flex;
-  width: 50px;
-  flex-direction: row;
-}
-
 .thumbnailImage {
   padding: 10px;
 }
@@ -149,34 +94,4 @@ hr {
 .thumbnailVideo {
   padding: 10px;
   width: 50px;
-}
-
-@media screen and (min-width: 720px) {
-  .main {
-    padding: 20px;
-    background-color: white;
-    width: 50%;
-    margin-left: 50%;
-    translate: -50%;
-  }
-}
-@media screen and (max-width: 720px) {
-  .main {
-    max-width: 76vw;
-  }
-  .item {
-    grid-template-columns: 1fr !important;
-  }
-  .counter {
-    display: flex;
-    justify-content: center;
-  }
-
-  .prev {
-    left: 0px;
-  }
-
-  .next {
-    right: 0px;
-  }
 }
