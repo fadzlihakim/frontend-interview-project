@@ -28,24 +28,24 @@ export default {
       image: [
         {
           tag: "front-large",
-          image: "assets/product-image-front-large.jpeg",
-          thumbnail: "assets/product-image-front-thumbnail.jpeg",
+          image: "/assets/product-image-front-large.jpeg",
+          thumbnail: "/assets/product-image-front-thumbnail.jpeg",
         },
         {
           tag: "image-large",
-          image: "assets/product-image-large.jpeg",
-          thumbnail: "assets/product-image-thumbnail.jpeg",
+          image: "/assets/product-image-large.jpeg",
+          thumbnail: "/assets/product-image-thumbnail.jpeg",
         },
         {
           tag: "back-large",
-          image: "assets/product-image-back-large.jpeg",
-          thumbnail: "assets/product-image-back-thumbnail.jpeg",
+          image: "/assets/product-image-back-large.jpeg",
+          thumbnail: "/assets/product-image-back-thumbnail.jpeg",
         },
       ],
       videos: [
-        { tag: "double-tap", video: "videos/double-tap-zoom-mobile.mp4" },
-        { tag: "drag-swipe", video: "videos/drag-swipe-in-mobile.mp4" },
-        { tag: "single-click", video: "videos/single-click-zoom-desktop.mp4" },
+        { tag: "double-tap", video: "/videos/double-tap-zoom-mobile.mp4" },
+        { tag: "drag-swipe", video: "/videos/drag-swipe-in-mobile.mp4" },
+        { tag: "single-click", video: "/videos/single-click-zoom-desktop.mp4" },
       ],
       isHovered: false,
       currentIndex: 0,
