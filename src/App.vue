@@ -162,12 +162,12 @@ export default {
             <img
               class="thumbnailImage"
               v-for="item in image"
-              v-bind:src="item.thumbnail"
+              :src="item.thumbnail"
               @click="openModal(item, 'image')" />
             <video
               class="thumbnailVideo"
               v-for="item in videos"
-              v-bind:src="item.video"
+              :src="item.video"
               @click="openModal(item.video, 'video')"></video>
           </div>
         </div>
@@ -182,12 +182,12 @@ export default {
             <div
               v-if="modalContentType === 'image'"
               class="grid place-items-center flex-[0_0_100%]">
-              <img v-bind:src="modalContent.image" alt="" class="h-96" />
+              <img :src="modalContent.image" alt="" class="h-96" />
             </div>
             <div
               v-if="modalContentType === 'video'"
               class="grid place-items-center flex-[0_0_100%]">
-              <iframe v-bind:src="modalContent" class="h-96"></iframe>
+              <iframe :src="modalContent" class="h-96"></iframe>
             </div>
             <div class="mt-4">
               <button
