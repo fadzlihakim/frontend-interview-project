@@ -28,32 +28,32 @@ export default {
       image: [
         {
           tag: "front-large",
-          image: "/src/assets/product-image-front-large.jpeg",
-          thumbnail: "/src/assets/product-image-front-thumbnail.jpeg",
+          image: import("/src/assets/product-image-front-large.jpeg"),
+          thumbnail: import("/src/assets/product-image-front-thumbnail.jpeg"),
         },
         {
           tag: "image-large",
-          image: "/src/assets/product-image-large.jpeg",
-          thumbnail: "/src/assets/product-image-thumbnail.jpeg",
+          image: import("/src/assets/product-image-large.jpeg"),
+          thumbnail: import("/src/assets/product-image-thumbnail.jpeg"),
         },
         {
           tag: "back-large",
-          image: "/src/assets/product-image-back-large.jpeg",
-          thumbnail: "/src/assets/product-image-back-thumbnail.jpeg",
+          image: import("/src/assets/product-image-back-large.jpeg"),
+          thumbnail: import("/src/assets/product-image-back-thumbnail.jpeg"),
         },
       ],
       videos: [
         {
           tag: "double-tap",
-          video: "/src/assets/videos/double-tap-zoom-mobile.mp4",
+          video: import("/src/assets/videos/double-tap-zoom-mobile.mp4"),
         },
         {
           tag: "drag-swipe",
-          video: "/src/assets/videos/drag-swipe-in-mobile.mp4",
+          video: import("/src/assets/videos/drag-swipe-in-mobile.mp4"),
         },
         {
           tag: "single-click",
-          video: "/src/assets/videos/single-click-zoom-desktop.mp4",
+          video: import("/src/assets/videos/single-click-zoom-desktop.mp4"),
         },
       ],
       isHovered: false,
