@@ -28,24 +28,33 @@ export default {
       image: [
         {
           tag: "front-large",
-          image: "/assets/product-image-front-large.jpeg",
-          thumbnail: "/assets/product-image-front-thumbnail.jpeg",
+          image: "/src/assets/product-image-front-large.jpeg",
+          thumbnail: "/src/assets/product-image-front-thumbnail.jpeg",
         },
         {
           tag: "image-large",
-          image: "/assets/product-image-large.jpeg",
-          thumbnail: "/assets/product-image-thumbnail.jpeg",
+          image: "/src/assets/product-image-large.jpeg",
+          thumbnail: "/src/assets/product-image-thumbnail.jpeg",
         },
         {
           tag: "back-large",
-          image: "/assets/product-image-back-large.jpeg",
-          thumbnail: "/assets/product-image-back-thumbnail.jpeg",
+          image: "/src/assets/product-image-back-large.jpeg",
+          thumbnail: "/src/assets/product-image-back-thumbnail.jpeg",
         },
       ],
       videos: [
-        { tag: "double-tap", video: "/videos/double-tap-zoom-mobile.mp4" },
-        { tag: "drag-swipe", video: "/videos/drag-swipe-in-mobile.mp4" },
-        { tag: "single-click", video: "/videos/single-click-zoom-desktop.mp4" },
+        {
+          tag: "double-tap",
+          video: "/src/assets/videos/double-tap-zoom-mobile.mp4",
+        },
+        {
+          tag: "drag-swipe",
+          video: "/src/assets/videos/drag-swipe-in-mobile.mp4",
+        },
+        {
+          tag: "single-click",
+          video: "/src/assets/videos/single-click-zoom-desktop.mp4",
+        },
       ],
       isHovered: false,
       currentIndex: 0,
@@ -116,7 +125,7 @@ export default {
 <template>
   <header class="grid place-items-center">
     <div class="container">
-      <img class="headerImage" src="/assets/tbps-logo.webp" alt="" />
+      <img class="headerImage" src="/src/assets/tbps-logo.webp" alt="" />
     </div>
   </header>
   <section class="grid place-items-center">
@@ -168,12 +177,17 @@ export default {
           class="fixed inset-0 flex items-center justify-center">
           <div class="modal-overlay fixed inset-0 bg-black opacity-25"></div>
 
-          <div class="modal-container bg-white w-1/2 p-6 rounded shadow-lg">
-            <div v-if="modalContentType === 'image'">
-              <img v-bind:src="modalContent.image" alt="" />
+          <div
+            class="modal-container bg-white w-1/2 p-6 rounded shadow-lg grid place-items-center">
+            <div
+              v-if="modalContentType === 'image'"
+              class="grid place-items-center flex-[0_0_100%]">
+              <img v-bind:src="modalContent.image" alt="" class="h-96" />
             </div>
-            <div v-if="modalContentType === 'video'">
-              <video v-bind:src="modalContent"></video>
+            <div
+              v-if="modalContentType === 'video'"
+              class="grid place-items-center flex-[0_0_100%]">
+              <iframe v-bind:src="modalContent" class="h-96"></iframe>
             </div>
             <div class="mt-4">
               <button
@@ -235,5 +249,12 @@ export default {
 
 .modal-close {
   font-size: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .modal-container {
+    height: 60vh;
+    width: 90vw;
+  }
 }
 </style>
