@@ -53,6 +53,9 @@ export default {
       touchStartX: 0,
       touchEndX: 0,
       threshold: 50,
+      isModalOpen: false,
+      modalContent: "",
+      modalContentType: "",
     };
   },
   methods: {
@@ -98,6 +101,14 @@ export default {
         }
       }
     },
+    openModal(content, contentType) {
+      this.modalContent = content;
+      this.modalContentType = contentType;
+      this.isModalOpen = true;
+    },
+    closeModal() {
+      this.isModalOpen = false;
+    },
   },
 };
 </script>
@@ -139,15 +150,38 @@ export default {
             </div>
           </div>
           <div class="flex flex-row overflow-hidden pt-5">
-            <!-- <div class="thumbnail"> -->
             <img
               class="thumbnailImage"
               v-for="item in image"
-              v-bind:src="item.thumbnail" />
+              v-bind:src="item.thumbnail"
+              @click="openModal(item, 'image')" />
             <video
               class="thumbnailVideo"
               v-for="item in videos"
-              v-bind:src="item.video"></video>
+              v-bind:src="item.video"
+              @click="openModal(item.video, 'video')"></video>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div
+          v-if="isModalOpen"
+          class="fixed inset-0 flex items-center justify-center">
+          <div class="modal-overlay fixed inset-0 bg-black opacity-25"></div>
+
+          <div class="modal-container bg-white w-1/2 p-6 rounded shadow-lg">
+            <div v-if="modalContentType === 'image'">
+              <img v-bind:src="modalContent.image" alt="" />
+            </div>
+            <div v-if="modalContentType === 'video'">
+              <video v-bind:src="modalContent"></video>
+            </div>
+            <div class="mt-4">
+              <button
+                @click="closeModal"
+                class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                Close
+              </button>
+            </div>
           </div>
         </div>
         <div class="flex flex-col text-start" id="describe">
@@ -185,3 +219,21 @@ export default {
     </div>
   </section>
 </template>
+<style scoped>
+.modal-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.modal-container {
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 20;
+}
+
+.modal-close {
+  font-size: 1.5rem;
+}
+</style>
