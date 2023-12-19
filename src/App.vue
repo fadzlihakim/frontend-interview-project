@@ -28,32 +28,32 @@ export default {
       image: [
         {
           tag: "front-large",
-          image: import("/src/assets/product-image-front-large.jpeg"),
-          thumbnail: import("/src/assets/product-image-front-thumbnail.jpeg"),
+          image: "product-image-front-large.jpeg",
+          thumbnail: "product-image-front-thumbnail.jpeg",
         },
         {
           tag: "image-large",
-          image: import("/src/assets/product-image-large.jpeg"),
-          thumbnail: import("/src/assets/product-image-thumbnail.jpeg"),
+          image: "product-image-large.jpeg",
+          thumbnail: "product-image-thumbnail.jpeg",
         },
         {
           tag: "back-large",
-          image: import("/src/assets/product-image-back-large.jpeg"),
-          thumbnail: import("/src/assets/product-image-back-thumbnail.jpeg"),
+          image: "product-image-back-large.jpeg",
+          thumbnail: "product-image-back-thumbnail.jpeg",
         },
       ],
       videos: [
         {
           tag: "double-tap",
-          video: import("/src/assets/videos/double-tap-zoom-mobile.mp4"),
+          video: "double-tap-zoom-mobile.mp4",
         },
         {
           tag: "drag-swipe",
-          video: import("/src/assets/videos/drag-swipe-in-mobile.mp4"),
+          video: "drag-swipe-in-mobile.mp4",
         },
         {
           tag: "single-click",
-          video: import("/src/assets/videos/single-click-zoom-desktop.mp4"),
+          video: "single-click-zoom-desktop.mp4",
         },
       ],
       isHovered: false,
@@ -143,7 +143,10 @@ export default {
                 v-for="(item, index) in image"
                 :key="index"
                 class="grid place-items-center flex-[0_0_100%]">
-                <img class="h-96" :src="item.image" alt="Slider Image" />
+                <img
+                  class="h-96"
+                  :src="`/src/assets/${item.image}`"
+                  alt="Slider Image" />
               </div>
             </div>
 
@@ -162,12 +165,12 @@ export default {
             <img
               class="thumbnailImage"
               v-for="item in image"
-              :src="item.thumbnail"
+              :src="`/src/assets/${item.thumbnail}`"
               @click="openModal(item, 'image')" />
             <video
               class="thumbnailVideo"
               v-for="item in videos"
-              :src="item.video"
+              :src="`/src/assets/videos/${item.video}`"
               @click="openModal(item.video, 'video')"></video>
           </div>
         </div>
@@ -182,12 +185,17 @@ export default {
             <div
               v-if="modalContentType === 'image'"
               class="grid place-items-center flex-[0_0_100%]">
-              <img :src="modalContent.image" alt="" class="h-96" />
+              <img
+                :src="`/src/assets/${modalContent.image}`"
+                alt=""
+                class="h-96" />
             </div>
             <div
               v-if="modalContentType === 'video'"
               class="grid place-items-center flex-[0_0_100%]">
-              <iframe :src="modalContent" class="h-96"></iframe>
+              <iframe
+                :src="`/src/assets/videos/${modalContent}`"
+                class="h-96"></iframe>
             </div>
             <div class="mt-4">
               <button
